@@ -1,0 +1,32 @@
+{
+  "name": "stackoverflow",
+  "version": "1.0.0",
+  "description": "API endpoints",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/akpante3/stackoverflow-lite.git"
+  },
+  "author": "obije victor",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/akpante3/stackoverflow-lite/issues"
+  },
+  "homepage": "https://github.com/akpante3/stackoverflow-lite#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3"
+  },
+  "devDependencies": {
+    "eslint": "^4.9.0",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "^6.0.1",
+    "eslint-plugin-react": "^7.4.0"
+  }
+ 
+}
