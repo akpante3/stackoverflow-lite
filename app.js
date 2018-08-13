@@ -71,8 +71,6 @@ app.delete('/questions/:id', (req, res) => {
   Questions.splice(qustionIndex, 1);
   res.status(200).send('Deleted');
 });
-
-
 app.listen(port, () => {
   console.log(`running on ${port}`);
 });
