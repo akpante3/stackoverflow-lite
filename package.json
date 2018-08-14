@@ -18,7 +18,8 @@
   "homepage": "https://github.com/akpante3/stackoverflow-lite#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
-    "express": "^4.16.3"
+    "express": "^4.16.3",
+    "router-express": "^1.5.2"
   },
   "devDependencies": {
     "eslint": "^4.9.0",

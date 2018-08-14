@@ -1,7 +1,8 @@
 const expect = require('expect');
 const request = require('supertest');
 
-const { app, Questions } = require('./../app');
+const { app } = require('./../../app');
+const { Questions } = require('./../controller/question')
 
 
 describe('POST /questions', () => {
@@ -10,7 +11,7 @@ describe('POST /questions', () => {
     const question = {
       id: Questions.length + 1,
       answers: [],
-      question: 'tesing question',
+      question: 'testing question',
     };
 
     request(app)
@@ -19,12 +20,11 @@ describe('POST /questions', () => {
       .send(question)
       .expect('Content-Type', /json/)
       .expect(200)
-      .expect((req) => {
-        expect(req.body.id).toBeTruthy();
-      })
       .end((err) => {
         if (err) return done(err);
-        expect(Questions.length).toBe(1);
+        expect((req) => {
+          expect(req.body.id).toBeTruthy();
+        });
         return done();
       });
   });
@@ -94,6 +94,30 @@ describe('/questions/:id/answers', () => {
       .expect(200)
       .end(done());
   });
+
+  // if id is not found
+  it('should not create an answers', (done) => {
+    request(app)
+      .post('/questions/0/answers')
+      .send({ answer: 'test case' })
+      .expect(400)
+      .end(done());
+  });
 });
 
-
+// DELETE a question
+describe('/questions/:id', () => {
+  it('should delete a question', (done) => {
+    const obj = { question: 'testing', id: 7, answers: [] };
+    Questions.push(obj);
+    request(app)
+      .delete('/questions/7')
+      .set('Accept', 'application/json')
+      .expect(200)
+      .end((err) => {
+        if (err) return done(err);
+        expect(Questions.indexOf(obj)).toBe(-1);
+        return done();
+      });
+  });
+});
