@@ -79,4 +79,21 @@ describe('/questions', () => {
   });
 });
 
+// POST an answer
+describe('/questions/:id/answers', () => {
+  it('should delete a question', (done) => {
+    const obj = { question: 'testing', id: 6, answers: [] };
+    Questions.push(obj);
+    request(app)
+      .post('/questions/6/answers')
+      .set('Accept', 'application/json')
+      .send({ answer: 'test case' })
+      .expect((res) => {
+        expect(res.body.answer).toBe('test case');
+      })
+      .expect(200)
+      .end(done());
+  });
+});
+
 
