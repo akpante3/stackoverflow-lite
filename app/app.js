@@ -18,7 +18,7 @@ const Questions = [
 app.post('/questions', (req, res) => {
   const post = { id: Questions.length + 1, answers: [] };
   post.question = req.body.question;
-
+  if (!post.question) { return res.status(400); }
   Questions.push(post);
   res.send({ id: post.id });
 });
@@ -37,22 +37,19 @@ app.get('/questions', (req, res) => {
 
 // get a question
 app.get('/questions/:id', (req, res) => {
-  const iD = parseInt(req.params.id, 10);
-  const singleQuestion = Questions.find(question => question.id === iD);
-  const Result = {
-    id: singleQuestion.id,
-    answers: singleQuestion.answers,
-  };
-
-  res.send(Result);
+  const id = parseInt(req.params.id, 10);
+  const singleQuestion = Questions.find(question => question.id === id);
+  if (!singleQuestion) { return res.status(400); }
+  res.send(singleQuestion);
 });
 
 // POST an answer
 app.post('/questions/:id/answers', (req, res) => {
-  const paramsId = parseInt(req.params.id, 10);
+  const id = parseInt(req.params.id, 10);
   const newAnswer = req.body.answer;
-  const quesTion = Questions.find(question => question.id === paramsId);
+  const quesTion = Questions.find(question => question.id === id);
   const index = Questions.indexOf(quesTion);
+  if (!index) { return res.status(400); }
   const post = {
     id: quesTion.answers.length + 10,
     answer: newAnswer,
@@ -64,13 +61,15 @@ app.post('/questions/:id/answers', (req, res) => {
 
 //  Delete a question
 app.delete('/questions/:id', (req, res) => {
-  const iDparams = parseInt(req.params.id, 10);
-  console.log(iDparams);
-  const targetQuestion = Questions.find(question => question.id === iDparams);
-  const qustionIndex = Questions.indexOf(targetQuestion);
-  Questions.splice(qustionIndex, 1);
+  const id = parseInt(req.params.id, 10);
+  const targetQuestion = Questions.find(question => question.id === id);
+  const index = Questions.indexOf(targetQuestion);
+  Questions.splice(index, 1);
   res.status(200).send('Deleted');
 });
+
 app.listen(port, () => {
   console.log(`running on ${port}`);
 });
+
+module.exports = { app, Questions };
