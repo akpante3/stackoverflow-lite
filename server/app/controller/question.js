@@ -24,7 +24,7 @@ const postQuestion = (question) => {
 
 // POST answer
 const postAnswer = (questionId, answer) => {
-  const id = parseInt(questionId, 10);
+  const id = parseFloat(questionId);
   const newAnswer = answer;
   const question = Questions.find(q => q.id === id);
   const index = Questions.indexOf(question);

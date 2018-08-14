@@ -2,7 +2,7 @@ const expect = require('expect');
 const request = require('supertest');
 
 const { app } = require('./../../app');
-const { Questions } = require('./../controller/question')
+const { Questions } = require('./../controller/question');
 
 
 describe('POST /questions', () => {
