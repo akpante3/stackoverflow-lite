@@ -11,8 +11,8 @@ const port = 8000;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use('/', routes);
 app.use('/v1', apiVersion);
+app.use('/', routes);
 
 
 app.listen(port, () => {
