@@ -33,7 +33,7 @@ questionRoutes.post('/questions', (req, res) => {
     res.send({
       results: question,
     });
-  }).catch(() => res.status(404).send({ error: 'An Error Occured' }));
+  }).catch(() => res.status(404).send({ error: 'post a "question"' }));
 });
 // POST answer
 questionRoutes.post('/questions/:id/answers', (req, res) => {
@@ -41,7 +41,7 @@ questionRoutes.post('/questions/:id/answers', (req, res) => {
     res.send({
       results: answer,
     });
-  }).catch(error => res.status(400).send({ error }));
+  }).catch(() => res.status(400).send({ error: 'post an "answer"' }));
 });
 // DELETE question
 questionRoutes.delete('/questions/:id', (req, res) => {

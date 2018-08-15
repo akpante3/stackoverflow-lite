@@ -4,7 +4,11 @@
   "description": "API endpoints",
   "main": "app.js",
   "scripts": {
+    "start":"node app.js ",
     "test": "mocha app/**/*test.js"
+  },
+  "engines":{
+     "node": "8.11.2"
   },
   "repository": {
     "type": "git",
@@ -23,7 +27,6 @@
     "babel-core": "^6.26.3"
   },
   "devDependencies": {
-    
     "babel-preset-env": "^1.7.0",
     "babel-preset-es2015": "^6.24.1",
     "eslint": "^4.9.0",

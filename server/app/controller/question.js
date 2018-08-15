@@ -1,3 +1,5 @@
+import { error } from "util";
+
 const Questions = [];
 // Get all Questions
 const getAll = () => Promise.resolve(Questions);
@@ -6,6 +8,7 @@ const getAll = () => Promise.resolve(Questions);
 const getOne = (id) => {
   const questionId = parseInt(id, 10);
   const question = Questions.find(q => q.id === questionId);
+  if (!question) return Promise.reject(new Error('pass valid id'));
   return Promise.resolve(question);
 };
 
@@ -16,6 +19,7 @@ const postQuestion = (question) => {
     answers: [],
     question,
   };
+  if (!question) return Promise.reject(new Error('post a question'));
 
   Questions.push(post);
   console.log(post);
@@ -32,6 +36,7 @@ const postAnswer = (questionId, answer) => {
     id: question.answers.length + 10,
     answer: newAnswer,
   };
+  if (!post.answer) return Promise.reject(new Error('post an answer'));
   question.answers.push(post);
   Questions.splice(index, 1, question);
   return Promise.resolve(post);
@@ -39,7 +44,7 @@ const postAnswer = (questionId, answer) => {
 
 // DELETE question
 const deleteQuestion = (id) => {
-  const questionId = parseInt(id, 10);
+  const questionId = parseFloat(id);
   const index = Questions.findIndex(q => q.id === questionId);
   Questions.splice(index, 1);
   return Promise.resolve('question was Deleted');
