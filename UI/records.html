@@ -4,64 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Stackoverflow-lite</title>
+    <title>stackoverflow-lite</title>
     <link rel="stylesheet" href="./css/style.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/fontawesome.css" integrity="sha384-HbmWTHay9psM8qyzEKPc8odH4DsOuzdejtnr+OFtDmOcIVnhgReQ4GZBH7uwcjf6" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/solid.css" integrity="sha384-wnAC7ln+XN0UKdcPvJvtqIH3jOjs9pnKnq9qX68ImXvOGz2JuFoEiCjT8jyZQX2z" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="./fonts/fonts.css" />
     <link rel="stylesheet" type="text/css" href="./fonts/fonts.min.css" />
 </head>
-    <body>
-            <div class="nav">
-                    <div class="nav-header">
-                        <div class="nav-title">
-                        <a href="./index.html">Stackoverflow-lite</a>
-                        </div>
-                        <input id="search-bar" href="" placeholder="Search">
-                    </div>
-                    <div class="nav-btn">
-                        <label for="nav-check">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </label>
-                    </div>
-                    <input type="checkbox" id="nav-check">
-                    <div class="nav-links">
-                        <a href="./index.html" >Home</a>
-                    </div>
-                </div>
-            <br>
-        <!-- USER-PROFILE-CONTAINER -->
-        <div  class="user-profile-container">
-            <div id="user">
-                <i class="fas fa-7x fa-user-circle" ></i>
+<style>
+
+</style>
+<body>
+  <!-- Navbar -->
+    <div class="nav">
+          <div class="nav-header">
+            <div class="nav-title">
+              Stackoverflow-lite
             </div>
-            <h3>Wahab</h3>
-            <ul>
-                <li>
-                    <h3>50</h3> questions
-                </li>
-                <li>
-                    <h3>10</h3> Answers
-                </li>
-                <li>
-                    <a href="./records.html">
-                    <button  class="edit-button">Edit Profile</button>
-                    </a> 
-                </li>
-            </ul>
-            
-            <hr>
-            <ul>
-                <li>
-                    <h3><a class="active-nav-user" id="profile-questions" href="#">Questions</a></h3> 
-                </li>
-                <li>
-                    <h3><a class="" id="profile-answers" href="#" >Anwers</a></h3> 
-                </li>
-            </ul>
+          </div>
+          <div class="nav-btn">
+            <label for="nav-check">
+              <span></span>
+              <span></span>
+              <span></span>
+            </label>
+          </div>
+          <input type="checkbox" id="nav-check">
+          <div class="nav-links">
+              <a href="./user-profile.html"  style="padding:5px"><i class="fas fa-2x fa-user-circle" ></i></a>
+              <a href="./index.html">Home</a>
+              <input type="search" id="search-bar" placeholder="Search">
+          </div>
+    </div>
+    <br>
+    <br>
+    <div class="records-container">
             <br>
-            <h1 id="profile-header">Your Questions</h1>
+            <h1 id="profile-header">Most Answered Questions</h1>
             <a href="./post-question.html"><button style="float:right">Ask question</button></a>
             <br>
             <br>
@@ -102,8 +80,7 @@
                     <hr>
         
                 </div>
-        </div>
-    <!-- FOOTER -->
+    </div>
     <footer>
             <div class="footer-item">
                 <ul>
@@ -132,6 +109,5 @@
                 </ul>
             </div>
     </footer>
-    </body>
+</body>
 </html>
-<script src="./js/main.js" ></script>

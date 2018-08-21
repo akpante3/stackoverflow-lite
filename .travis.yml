@@ -1,5 +1,19 @@
+before_script: 
+- cd server
+- npm install codeclimate-test-reporter istanbul -g
 language: node_js
 node_js:
    - "stable"
+addons:
+   code_climate:
+     repo_token: a315018021e648cae168bcf040a0809f041d9806
 script:
-  - npm run test
+  - npm install && npm run test
+<<<<<<< HEAD
+  - make test-coveralls
+=======
+>>>>>>> 44e4282f8b21a7c96ebd9b4cfca2118d5835be6c
+after_script: 
+- "cat
+./coverage/lcov.info |
+./node_modules/coveralls/bin/coveralls.js"
