@@ -10,9 +10,7 @@ addons:
 script:
   - npm install && npm run test
   - make test-coveralls
-  - istanbul cover node_modules/mocha/bin/_mocha -- -R spec
 after_script: 
 - "cat
 ./coverage/lcov.info |
 ./node_modules/coveralls/bin/coveralls.js"
-- codeclimate-test-reporter < ./coverage/lcov.info
