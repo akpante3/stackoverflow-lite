@@ -9,7 +9,6 @@ addons:
      repo_token: a315018021e648cae168bcf040a0809f041d9806
 script:
   - npm install && npm run test
-  - make test-coveralls
 after_script: 
 - "cat
 ./coverage/lcov.info |
