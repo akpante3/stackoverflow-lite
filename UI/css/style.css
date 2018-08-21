@@ -5,7 +5,7 @@
   
   body {
     margin: 0px;
-    font-family: 'segoe ui';
+    font-family: 'Proxima Nova', Georgia, sans-serif;
   }
   /* NavBar */
   .nav {
@@ -13,16 +13,31 @@
     width: 100%;
     background-color: #4d4d4d;
     position: relative;
+    padding-bottom: 5px;
     
+  }
+  .nav-title > a{
+    text-decoration: none;
+    color: #efefef;
   }
   
   .nav > .nav-header {
     display: inline;
   }
-  /* #search-bar{
-      
-      border-radius: 5px;
-  } */
+  #search-bar{  
+    border-radius: 5px;
+    margin-left: 100px;
+    width: 200px;
+    height:50% ;
+    border: solid 1px #4d4d4d;
+    padding-right: 5px;
+  }
+  .Ask-question{
+    float:right  
+  }
+  .nav-header{
+    padding-left: 17px;
+  }
   
   .nav > .nav-header > .nav-title {
     display: inline-block;
@@ -39,6 +54,7 @@
     display: inline;
     float: right;
     font-size: 18px;
+    padding-right: 20px;
   }
   
   .nav > .nav-links > a {
@@ -49,7 +65,7 @@
   }
   
   .nav > .nav-links > a:hover {
-    color: rgba(0, 0, 0, 0.3);
+    color: white;
   }
   
   .nav > #nav-check {
@@ -59,8 +75,9 @@
    padding:5px;
    color:white
   }
- 
-  
+  .fa-user-circle{
+    padding:5px
+  }
 
 /* SIGN-UP LOG-IN FORM */
 .sign-container > #user{
@@ -68,7 +85,7 @@
     text-align: center;
 }
 .sign-container{
-    width: 60%;
+    width: 30%;
     margin: 0 auto;
 }
 input[type=text], input[type=password] {
@@ -92,7 +109,7 @@ hr {
 }
 
 button {
-    background-color: #4CAF50;
+    background-color:rgb(4, 174, 253);
     color: white;
     padding: 14px 20px;
     margin: 8px 0;
@@ -106,11 +123,6 @@ button {
 }
 button:hover {
     opacity:1;
-}
-
-.cancelbtn {
-    padding: 14px 20px;
-    background-color: #f44336;
 }
 
 .cancelbtn, .signupbtn, {
@@ -219,7 +231,7 @@ button:hover {
 }
 .answers-section > button{
     float: right;
-    background-color: rgb(72, 72, 219);
+    background-color: rgb(50, 207, 255);
 }
 
 /* USERS PROFILE */
@@ -249,13 +261,13 @@ button:hover {
     color:black;
 }
 .active-nav-user{
-    border-bottom: solid #4CAF50 3px;
+    border-bottom: solid rgb(4, 174, 253) 3px;
     padding-bottom: 10%;
 }
 .edit-button{
     background-color:white;
-    color:#4CAF50;
-    border: solid 3px #4CAF50;
+    color:rgb(4, 174, 253);
+    border: solid 3px rgb(4, 174, 253);
 }
 .user-profile-container >ul{
     display: block;
@@ -267,9 +279,6 @@ button:hover {
     
 }
 /* POST QUESTION */
-textarea{
-    width: 100%
-}
 .post-question-container{
     width: 60%;
     margin: 0 auto;
@@ -282,6 +291,17 @@ textarea{
  .fa-thumbs-down{
     color: none;
 } 
+#question-bar{
+    width:100%;
+    height: 50px;
+    border-radius: 7px;
+    border: solid 1px black;
+}
+/* Records container */
+.records-container{
+    width: 60%;
+    margin: 0 auto;
+}
 
 /* FOOTER */
 footer{
@@ -355,6 +375,7 @@ footer{
   }
   #search-bar{
     margin-left: 8px;
+    display: none
    
 }
 button{
@@ -367,6 +388,9 @@ button{
 }
 #user-nav{
   display: none;
+ }
+ .nav-header > .nav-title > input{
+     display: none;
  }
  /* HOME CONTAINER */
 

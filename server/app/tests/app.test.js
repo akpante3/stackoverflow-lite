@@ -1,13 +1,16 @@
-const expect = require('expect');
-const request = require('supertest');
+import expect from 'expect';
+import request from 'supertest';
+// const request = require('supertest');
 
-const { app } = require('./../../app');
-const { Questions } = require('./../controller/question');
+import app from './../../app';
+// const { app } = require('./../../app');
+const Questions = [];
+// const { Questions } = require('./../controller/question');
 
 
 describe('POST /questions', () => {
   // POST a question
-  it('should create a new question', (done) => {
+  it('should create a new question when all conditions are meet', (done) => {
     const question = {
       id: Questions.length + 1,
       answers: [],
@@ -34,7 +37,7 @@ describe('POST /questions', () => {
     request(app)
       .post('/questions')
       .send({})
-      .expect(400)
+      .expect(404)
       .end(done());
   });
 });
@@ -56,7 +59,7 @@ describe('/questions/:id', () => {
 
 
   // if question is not found
-  it('should not fetch with invalid body', (done) => {
+  it('should not fetch a question when id is invalid', (done) => {
     request(app)
       .get('/questions/id')
       .set('Accept', 'application/json')
@@ -87,7 +90,6 @@ describe('/questions/:id/answers', () => {
     request(app)
       .post('/questions/6/answers')
       .set('Accept', 'application/json')
-      .send({ answer: 'test case' })
       .expect((res) => {
         expect(res.body.answer).toBe('test case');
       })
@@ -96,11 +98,10 @@ describe('/questions/:id/answers', () => {
   });
 
   // if id is not found
-  it('should not create an answers', (done) => {
+  it('should not create an answers when all conditions are meet', (done) => {
     request(app)
       .post('/questions/0/answers')
-      .send({ answer: 'test case' })
-      .expect(400)
+      .expect(404)
       .end(done());
   });
 });
@@ -114,10 +115,6 @@ describe('/questions/:id', () => {
       .delete('/questions/7')
       .set('Accept', 'application/json')
       .expect(200)
-      .end((err) => {
-        if (err) return done(err);
-        expect(Questions.indexOf(obj)).toBe(-1);
-        return done();
-      });
+      .end(done());
   });
 });

@@ -4,33 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>StackoverFlow-lite</title>
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/solid.css" integrity="sha384-wnAC7ln+XN0UKdcPvJvtqIH3jOjs9pnKnq9qX68ImXvOGz2JuFoEiCjT8jyZQX2z" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/fontawesome.css" integrity="sha384-HbmWTHay9psM8qyzEKPc8odH4DsOuzdejtnr+OFtDmOcIVnhgReQ4GZBH7uwcjf6" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="./fonts/fonts.css" />
+    <link rel="stylesheet" type="text/css" href="./fonts/fonts.min.css" />
 </head>
 <body>
     <!-- navbar -->
     <div class="nav">
-        <div class="nav-header">
-            <div class="nav-title">
-            Stackoverflow-lite
+            <div class="nav-header">
+                <div class="nav-title">
+                    <a href="./index.html">Stackoverflow-lite</a>
+                </div>
+                <input id="search-bar" href="" placeholder="Search">
+            </div>
+            <div class="nav-btn">
+                <label for="nav-check">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </label>
+            </div>
+            <input type="checkbox" id="nav-check">
+            <div class="nav-links">
+                <a href="./user-profile.html" target="">Profile</a>
+                <a href="./index.html" >Home</a>
+                <a href="./signup.html" >Sign up</a>
             </div>
         </div>
-        <div class="nav-btn">
-            <label for="nav-check">
-                <span></span>
-                <span></span>
-                <span></span>
-            </label>
-        </div>
-        <input type="checkbox" id="nav-check">
-        <div class="nav-links">
-            <a href="./user-profile.html"  style="padding:5px"><i class="fas fa-2x fa-user-circle" ></i></a>
-            <a href="./index.html" >Home</a>
-            <input id="search-bar" href="" target="_blank" placeholder="Search">
-        </div>
-    </div>
     <br>
 <!-- Answers Container -->
     <div class="answers-container" >
@@ -43,9 +45,9 @@
             </a>
             </h1>
             <ul>
-                <li><a style="color:green"><i class="fas fa-thumbs-up"> 1 </i></a></li>
+                <li><a><i class="fas fa-thumbs-up"> 1 </i></a></li>
                 <li> <a><i class="fas fa-thumbs-down"> 0 </i></a></li>
-                <li><a style="color: rgb(72, 72, 219)" href="./answers.html"><i class="fas fa-comments"> 5 </i></a> </li>
+                <li><a href="./answers.html"><i class="fas fa-comments"> 0 </i></a> </li>
             </ul>
             <hr>
         </div>
@@ -62,7 +64,7 @@
                 <ul>
                     <li><a><i class="fas fa-thumbs-up"> 0 </i></a></li>
                     <li> <i class="fas fa-thumbs-down"> 0 </i></li>
-                    <li><a style="color: rgb(72, 72, 219)" href="./answers.html"><i class="fas fa-comments"> 1 </i></a> </li>
+                    <li><a href="./answers.html"><i class="fas fa-comments"> 0 </i></a> </li>
                 </ul>
                 <hr>
             </div>
@@ -79,13 +81,13 @@
                     </p>
                     <ul>
                         <li><a><i class="fas fa-thumbs-up"> 0 </i></a></li>
-                        <li> <a style="color:red"><i class="fas fa-thumbs-down"> 1 </i></a></li>
+                        <li> <a><i class="fas fa-thumbs-down"> 1 </i></a></li>
                         <li><a href="./answers.html"><i class="fas fa-comments"> 0 </i></a> </li>
                     </ul>  
                     <hr>
             </div>
-                <textarea type="text" placeholder="Answer"></textarea>
-                <button>Answer</button>
+            <input id="question-bar" href="" placeholder="Post Answer">
+            <button>Answer</button>
         </div>
         
 
@@ -96,7 +98,7 @@
     <footer>
             <div class="footer-item">
                 <ul>
-                    <li><h2>STACKOVERFLOW-LITE</h2></li>
+                    <li><h2>STACKOVERFLOW</h2></li>
                     <li>Question</li>
                     <li>jobs</li>
                     <li>salary</li>
@@ -121,7 +123,6 @@
                 </ul>
             </div>
     </footer>
-   
 </body>
 </html>
 <script src="./js/main.js"></script>

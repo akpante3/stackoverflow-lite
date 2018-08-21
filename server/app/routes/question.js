@@ -1,14 +1,15 @@
-const express = require('express');
+import express from 'express';
 
-const questionRoutes = express.Router();
-
-const {
+import {
   postQuestion,
   getAll,
   getOne,
   postAnswer,
   deleteQuestion,
-} = require('./../controller/question');
+} from './../controller/question';
+
+
+const questionRoutes = express.Router();
 
 
 // GET all Questions
@@ -33,7 +34,7 @@ questionRoutes.post('/questions', (req, res) => {
     res.send({
       results: question,
     });
-  }).catch(() => res.status(404).send({ error: 'post a "question"' }));
+  }).catch(() => res.status(404).send({ error: '"question" cannot be found' }));
 });
 // POST answer
 questionRoutes.post('/questions/:id/answers', (req, res) => {
@@ -41,7 +42,7 @@ questionRoutes.post('/questions/:id/answers', (req, res) => {
     res.send({
       results: answer,
     });
-  }).catch(() => res.status(400).send({ error: 'post an "answer"' }));
+  }).catch(() => res.status(404).send({ error: '"answer" cannot be found' }));
 });
 // DELETE question
 questionRoutes.delete('/questions/:id', (req, res) => {

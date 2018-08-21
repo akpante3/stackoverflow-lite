@@ -7,7 +7,7 @@ const getAll = () => Promise.resolve(Questions);
 // Get one question
 const getOne = (id) => {
   const questionId = parseInt(id, 10);
-  const question = Questions.find(q => q.id === questionId);
+  const question = Questions.find(questn => questn.id === questionId);
   if (!question) return Promise.reject(new Error('pass valid id'));
   return Promise.resolve(question);
 };
@@ -50,7 +50,7 @@ const deleteQuestion = (id) => {
   return Promise.resolve('question was Deleted');
 };
 
-module.exports = {
+export {
   getAll,
   getOne,
   postQuestion,
