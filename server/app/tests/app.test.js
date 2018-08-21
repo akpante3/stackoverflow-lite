@@ -20,10 +20,6 @@ describe('POST /questions', () => {
     request(app)
       .post('/questions')
       .set('Accept', 'application/json')
-<<<<<<< HEAD
-=======
-      .send(question)
->>>>>>> 44e4282f8b21a7c96ebd9b4cfca2118d5835be6c
       .end((err) => {
         if (err) return done(err);
         expect((req) => {
