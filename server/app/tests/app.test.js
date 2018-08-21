@@ -21,8 +21,6 @@ describe('POST /questions', () => {
       .post('/questions')
       .set('Accept', 'application/json')
       .send(question)
-      .expect('Content-Type', /json/)
-      .expect(200)
       .end((err) => {
         if (err) return done(err);
         expect((req) => {
