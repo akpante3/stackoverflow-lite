@@ -29,7 +29,6 @@ const getOne = (id) => {
     question.answers = answers;
     return question;
   })
-
     .then((data) => {
       return Promise.resolve(data);
     });

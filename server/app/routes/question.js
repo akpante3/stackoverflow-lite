@@ -11,7 +11,6 @@ import {
 
 const questionRoutes = express.Router();
 
-
 // GET all Questions
 questionRoutes.get('/questions', (req, res) => {
   getAll().then((questions) => {
