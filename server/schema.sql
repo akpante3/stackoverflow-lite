@@ -9,7 +9,7 @@ CREATE DATABASE questiondb
 CREATE TABLE public.questions
 (
   question character(2000),
-  id integer NOT NULL DEFAULT nextval('questions_id_seq'::regclass),
+  id integer NOT NULL,
   CONSTRAINT questions_pkey PRIMARY KEY (id)
 );
 
@@ -17,9 +17,16 @@ CREATE TABLE public.answers
 (
   answer character(225),
   question_id integer,
-  answer_id integer NOT NULL DEFAULT nextval('answers_answer_id_seq'::regclass),
+  answer_id integer NOT NULL ,
   CONSTRAINT answers_pkey PRIMARY KEY (answer_id),
   CONSTRAINT id FOREIGN KEY (question_id)
       REFERENCES public.questions (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION
+);
+
+CREATE TABLE users
+(
+id serial primary key,
+email text not null unique,
+password text not null
 );

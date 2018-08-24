@@ -1,25 +1,27 @@
-import promise from 'bluebird';
+import db from '../db/dbconnect';
 
-import pgp from 'pg-promise';
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
+const config = require('./.././../config.js');
 
-const options = {
-  promiseLib: promise,
-};
-
-const pg = pgp(options);
-
-const connectionString = 'postgres://postgres:123456@localhost:5432/questiondb';
-const db = pg(connectionString);
-
-//  POST a Users
+/**  create a User
+ *  @function
+*/
 const createUser = (email, password) => {
   if (!email || !password) return Promise.reject(new Error('post a question'));
-  return db.one('INSERT INTO users (email, password) VALUES($1,$2) RETURNING id', [email, password])
+  const hashedPassword = bcrypt.hashSync(password, 8);
+  return db.one('INSERT INTO users (email, password) VALUES($1,$2) RETURNING id', [email, hashedPassword])
     .then((data) => {
-      return Promise.resolve(data);
+      const token = jwt.sign({ id: data.id }, config.secret, {
+        expiresIn: 86400,
+      });
+      return Promise.resolve({ token });
     });
 };
-// GetAll
+
+/**  Get all Users
+ *  @function
+*/
 const allUsers = () => {
   return db.any('select * from users')
     .then((data) => {
@@ -28,7 +30,29 @@ const allUsers = () => {
 };
 
 
+/**  login a User
+ *  @function
+*/
+const login = (email, password) => {
+  console.log(email);
+  return db.one('SELECT * FROM users WHERE email =$1', email)
+    .then((data) => {
+      const passwordIsValid = bcrypt.compareSync(password, data.password);
+      const token = jwt.sign({ id: user.id }, config.secret, {
+        expiresIn: 86400,
+      });
+      if (!passwordIsValid) {
+        return Promise.reject(Error);
+      }
+      return Promise.resolve(token);
+    }).catch(e => Promise.reject(e));
+};
+
 export {
   createUser,
   allUsers,
+  config,
+  bcrypt,
+  jwt,
+  login,
 };

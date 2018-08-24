@@ -1,17 +1,9 @@
-import promise from 'bluebird';
+import db from '../db/dbconnect';
 
-import pgp from 'pg-promise';
 
-const options = {
-  promiseLib: promise,
-};
-
-const pg = pgp(options);
-
-const connectionString = 'postgres://postgres:123456@localhost:5432/questiondb';
-const db = pg(connectionString);
-
-// Get all Questions
+/**  Get all Questions
+ *  @function
+*/
 const getAll = () => {
   return db.any('select * from questions')
     .then((data) => {
@@ -19,7 +11,9 @@ const getAll = () => {
     });
 };
 
-// Get one question
+/**  Get one question
+ *  @function
+*/
 const getOne = (id) => {
   const questionId = parseFloat(id);
   return db.task(t => t.batch([
@@ -34,7 +28,10 @@ const getOne = (id) => {
     });
 };
 
-//  POST a question
+
+/**  POST a question
+ *  @function
+*/
 const postQuestion = (question) => {
   if (!question) return Promise.reject(new Error('post a question'));
   return db.one('INSERT INTO questions (question) VALUES($1) RETURNING id', question)
@@ -43,7 +40,10 @@ const postQuestion = (question) => {
     });
 };
 
-// POST answer
+
+/**  POST answer
+ *  @function
+*/
 const postAnswer = (questionId, answer) => {
   const id = parseFloat(questionId);
   const newAnswer = answer;
@@ -53,7 +53,10 @@ const postAnswer = (questionId, answer) => {
     });
 };
 
-// DELETE question
+
+/**  DELETE question
+ *  @function
+*/
 const deleteQuestion = (id) => {
   if (!id) return Promise.reject(new Error('question is not Found'));
   const questionId = parseFloat(id);

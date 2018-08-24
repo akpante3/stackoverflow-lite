@@ -1,12 +1,10 @@
 import expect from 'expect';
 import request from 'supertest';
-// const request = require('supertest');
+
 
 import app from './../../app';
-// const { app } = require('./../../app');
-const Questions = [];
-// const { Questions } = require('./../controller/question');
 
+const Questions = [];
 
 describe('POST /questions', () => {
   // POST a question

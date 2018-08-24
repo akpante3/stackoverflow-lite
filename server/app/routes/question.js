@@ -11,7 +11,10 @@ import {
 
 const questionRoutes = express.Router();
 
-// GET all Questions
+
+/**   GET all Questions
+ *  @callback
+*/
 questionRoutes.get('/questions', (req, res) => {
   getAll().then((questions) => {
     res.send({
@@ -19,7 +22,10 @@ questionRoutes.get('/questions', (req, res) => {
     });
   }).catch(() => res.status(400).send({ error: 'An Error Occured' }));
 });
-//  GET a question
+
+/** GET a question
+ *  @callback
+*/
 questionRoutes.get('/questions/:id', (req, res) => {
   getOne(req.params.id).then((question) => {
     res.send({
@@ -27,7 +33,10 @@ questionRoutes.get('/questions/:id', (req, res) => {
     });
   }).catch(() => res.status(400).send({ error: 'No question with that id exist' }));
 });
-// POST a question
+
+/** POST a question
+ *  @callback
+*/
 questionRoutes.post('/questions', (req, res) => {
   postQuestion(req.body.question).then((question) => {
     res.send({
@@ -35,7 +44,10 @@ questionRoutes.post('/questions', (req, res) => {
     });
   }).catch(() => res.status(404).send({ error: '"question" cannot be found' }));
 });
-// POST answer
+
+/** POST answer
+ *  @callback
+*/
 questionRoutes.post('/questions/:id/answers', (req, res) => {
   postAnswer(req.params.id, req.body.answer).then((answer) => {
     res.send({
@@ -43,7 +55,11 @@ questionRoutes.post('/questions/:id/answers', (req, res) => {
     });
   }).catch(() => res.status(404).send({ error: '"answer" cannot be found' }));
 });
-// DELETE question
+
+/** DELETE question
+ *  @callback
+*/
+
 questionRoutes.delete('/questions/:id', (req, res) => {
   deleteQuestion(req.params.id).then(() => {
     res.status(200).send('question was DELETED');
