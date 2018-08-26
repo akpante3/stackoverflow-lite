@@ -47,10 +47,12 @@ const postQuestion = (question) => {
 const postAnswer = (questionId, answer) => {
   const id = parseFloat(questionId);
   const newAnswer = answer;
-  return db.one('INSERT INTO answers (question_id,answer) VALUES($1,$2) RETURNING answer_id', [id, newAnswer])
+  console.log(id);
+  return db.one('INSERT INTO answers (question_id,answer,is_favourite) VALUES($1,$2,$3) RETURNING answer_id', [id, newAnswer, false])
     .then((data) => {
+      console.log(data);
       return Promise.resolve(data);
-    });
+    }).catch((e) => { console.log(e); });
 };
 /**  DELETE question
  * @param {string}
@@ -66,6 +68,18 @@ const deleteQuestion = (id) => {
       return Promise.resolve(data);
     });
 };
+/**  Get answer
+ * @param {string}
+ * @return {string}
+ * @public
+*/
+const favAnswer = (answerId) => {
+  const id = parseFloat(answerId);
+  return db.one('UPDATE answers SET is_favourite = true WHERE answer_id = $1', id)
+    .then(() => {
+      return Promise.resolve(true);
+    }).catch((e) => { console.log(e); });
+};
 
 export {
   getAll,
@@ -73,4 +87,5 @@ export {
   postQuestion,
   postAnswer,
   deleteQuestion,
+  favAnswer,
 };

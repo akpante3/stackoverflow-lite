@@ -128,4 +128,12 @@ describe('/auth/login', () => {
   });
 });
 
+describe('/questions/:questionId/answers/:answerId', () => {
+  it('should favourite an answer', (done) => {
+    request(app)
+      .put('/questions/:questionId/answers/:answerId')
+      .expect(200)
+      .end(done());
+  });
+});
 

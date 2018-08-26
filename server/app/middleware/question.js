@@ -4,6 +4,7 @@ import {
   postQuestion,
   postAnswer,
   deleteQuestion,
+  favAnswer,
 } from './../controller/question';
 /** Get all question
  * @param {obj}
@@ -63,6 +64,18 @@ const questionDelete = (req, res) => {
     res.status(200).send('question was DELETED');
   }).catch(error => res.status(400).send({ error }));
 };
+/** Favourite Anwer
+ * @param {obj}
+ * @return {obj}
+ * @public
+*/
+const markDownAnswer = (req, res) => {
+  favAnswer(req.params.answerId).then(() => {
+    res.status(200).send({
+      results: 'success',
+    });
+  }).catch(() => res.status(404).send({ error: '"answer" cannot be found' }));
+};
 
 export {
   newQuestion,
@@ -70,4 +83,5 @@ export {
   allquestion,
   newAnswer,
   questionDelete,
+  markDownAnswer,
 };

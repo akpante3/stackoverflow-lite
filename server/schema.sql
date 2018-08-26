@@ -17,7 +17,7 @@ CREATE TABLE public.answers
 (
   answer character(225),
   question_id integer,
-  answer_id integer NOT NULL ,
+  answer_id serial NOT NULL ,
   CONSTRAINT answers_pkey PRIMARY KEY (answer_id),
   CONSTRAINT id FOREIGN KEY (question_id)
       REFERENCES public.questions (id) MATCH SIMPLE
