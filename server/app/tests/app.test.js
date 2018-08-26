@@ -129,7 +129,7 @@ describe('/auth/login', () => {
 });
 
 describe('/questions/:questionId/answers/:answerId', () => {
-  it('should choose an answer accepted', (done) => {
+  it('should choose an answer as accepted', (done) => {
     request(app)
       .put('/questions/:questionId/answers/:answerId')
       .expect(200)
