@@ -1,8 +1,7 @@
 import db from '../db/dbconnect';
-
-
-/**  Get all Questions
- *  @function
+/** Get all question
+ * @return {obj}
+ * @public
 */
 const getAll = () => {
   return db.any('select * from questions')
@@ -10,9 +9,10 @@ const getAll = () => {
       return Promise.resolve(data);
     });
 };
-
 /**  Get one question
- *  @function
+ * @param {string}
+ * @return {obj}
+ * @public
 */
 const getOne = (id) => {
   const questionId = parseFloat(id);
@@ -27,10 +27,10 @@ const getOne = (id) => {
       return Promise.resolve(data);
     });
 };
-
-
 /**  POST a question
- *  @function
+ * @param {string}
+ * @return {obj}
+ * @public
 */
 const postQuestion = (question) => {
   if (!question) return Promise.reject(new Error('post a question'));
@@ -39,10 +39,10 @@ const postQuestion = (question) => {
       return Promise.resolve(data);
     });
 };
-
-
 /**  POST answer
- *  @function
+ * @param {string}
+ * @return {obj}
+ * @public
 */
 const postAnswer = (questionId, answer) => {
   const id = parseFloat(questionId);
@@ -52,10 +52,10 @@ const postAnswer = (questionId, answer) => {
       return Promise.resolve(data);
     });
 };
-
-
 /**  DELETE question
- *  @function
+ * @param {string}
+ * @return {string}
+ * @public
 */
 const deleteQuestion = (id) => {
   if (!id) return Promise.reject(new Error('question is not Found'));

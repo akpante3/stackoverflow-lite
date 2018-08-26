@@ -5,7 +5,9 @@ const bcrypt = require('bcryptjs');
 const config = require('./.././../config.js');
 
 /**  create a User
- *  @function
+ * @param {string}
+ * @return {string}
+ * @public
 */
 const createUser = (email, password) => {
   if (!email || !password) return Promise.reject(new Error('post a question'));
@@ -15,12 +17,13 @@ const createUser = (email, password) => {
       const token = jwt.sign({ id: data.id }, config.secret, {
         expiresIn: 86400,
       });
+      console.log(typeof (token));
       return Promise.resolve({ token });
     });
 };
-
 /**  Get all Users
- *  @function
+ * @return {obj}
+ * @public
 */
 const allUsers = () => {
   return db.any('select * from users')
@@ -28,17 +31,16 @@ const allUsers = () => {
       return Promise.resolve(data);
     });
 };
-
-
-/**  login a User
- *  @function
+/**  login user
+ * @param {string}
+ * @return {obj}
+ * @public
 */
 const login = (email, password) => {
-  console.log(email);
   return db.one('SELECT * FROM users WHERE email =$1', email)
     .then((data) => {
       const passwordIsValid = bcrypt.compareSync(password, data.password);
-      const token = jwt.sign({ id: user.id }, config.secret, {
+      const token = jwt.sign({ id: data.id }, config.secret, {
         expiresIn: 86400,
       });
       if (!passwordIsValid) {

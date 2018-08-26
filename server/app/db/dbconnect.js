@@ -11,4 +11,4 @@ const pg = pgp(options);
 const connectionString = 'postgres://postgres:123456@localhost:5432/questiondb';
 const db = pg(connectionString);
 
-module.exports = db;
+export default db;
