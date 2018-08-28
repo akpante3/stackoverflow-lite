@@ -17,7 +17,7 @@ const createUser = (email, password) => {
       const token = jwt.sign({ id: data.id }, config.secret, {
         expiresIn: 86400,
       });
-      console.log(typeof (token));
+      debugger;
       return Promise.resolve({ token });
     });
 };
