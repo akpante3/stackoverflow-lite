@@ -1,53 +1,84 @@
-
-
-const Questions = [];
-// Get all Questions
-const getAll = () => Promise.resolve(Questions);
-
-// Get one question
+import db from '../db/dbconnect';
+/** Get all question
+ * @return {obj}
+ * @public
+*/
+const getAll = () => {
+  return db.any('select * from questions')
+    .then((data) => {
+      return Promise.resolve(data);
+    });
+};
+/**  Get one question
+ * @param {string}
+ * @return {obj}
+ * @public
+*/
 const getOne = (id) => {
-  const questionId = parseInt(id, 10);
-  const question = Questions.find(questn => questn.id === questionId);
-  if (!question) return Promise.reject(new Error('pass valid id'));
-  return Promise.resolve(question);
+  const questionId = parseFloat(id);
+  return db.task(t => t.batch([
+    t.one('SELECT id, question FROM questions WHERE id =$1', questionId),
+    t.any('SELECT answer_id,answer FROM answers WHERE answers.question_id =$1', questionId),
+  ])).spread((question, answers) => {
+    question.answers = answers;
+    return question;
+  })
+    .then((data) => {
+      return Promise.resolve(data);
+    });
 };
-
-//  POST a question
+/**  POST a question
+ * @param {string}
+ * @return {obj}
+ * @public
+*/
 const postQuestion = (question) => {
-  const post = {
-    id: Questions.length + 1,
-    answers: [],
-    question,
-  };
   if (!question) return Promise.reject(new Error('post a question'));
-
-  Questions.push(post);
-  console.log(post);
-  return Promise.resolve(post);
+  return db.one('INSERT INTO questions (question) VALUES($1) RETURNING id', question)
+    .then((data) => {
+      return Promise.resolve(data);
+    });
 };
-
-// POST answer
+/**  POST answer
+ * @param {string}
+ * @return {obj}
+ * @public
+*/
 const postAnswer = (questionId, answer) => {
   const id = parseFloat(questionId);
   const newAnswer = answer;
-  const question = Questions.find(q => q.id === id);
-  const index = Questions.indexOf(question);
-  const post = {
-    id: question.answers.length + 10,
-    answer: newAnswer,
-  };
-  if (!post.answer) return Promise.reject(new Error('post an answer'));
-  question.answers.push(post);
-  Questions.splice(index, 1, question);
-  return Promise.resolve(post);
+  console.log(id);
+  return db.one('INSERT INTO answers (question_id,answer,is_favourite) VALUES($1,$2,$3) RETURNING answer_id', [id, newAnswer, false])
+    .then((data) => {
+      console.log(data);
+      return Promise.resolve(data);
+    }).catch((e) => { console.log(e); });
 };
-
-// DELETE question
+/**  DELETE question
+ * @param {string}
+ * @return {string}
+ * @public
+*/
 const deleteQuestion = (id) => {
+  if (!id) return Promise.reject(new Error('question is not Found'));
   const questionId = parseFloat(id);
-  const index = Questions.findIndex(q => q.id === questionId);
-  Questions.splice(index, 1);
-  return Promise.resolve('question was Deleted');
+  console.log(questionId);
+  return db.result('DELETE FROM questions where id = $1', questionId)
+    .then((data) => {
+      return Promise.resolve(data);
+    });
+};
+/**  Get answer
+ * @param {string}
+ * @return {string}
+ * @public
+*/
+const favAnswer = (answerId) => {
+  const id = parseFloat(answerId);
+  return db.one('UPDATE answers SET is_favourite = true WHERE answer_id = $1', id)
+    .then(() => {
+      return Promise.resolve(true);
+    }).catch((e) => { console.log(e); });
 };
 
 export {
@@ -56,5 +87,5 @@ export {
   postQuestion,
   postAnswer,
   deleteQuestion,
-  Questions,
+  favAnswer,
 };
