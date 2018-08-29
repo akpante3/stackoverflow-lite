@@ -14,9 +14,11 @@ import {
 const allquestion = (req, res) => {
   getAll().then((questions) => {
     res.send({
-      results: questions,
+      status: 'success',
+      message: 'question was succcessfully fetched',
+      data: questions,
     });
-  }).catch(() => res.status(400).send({ error: 'An Error Occured' }));
+  }).catch(() => res.status(400).send({ error: 'could not find Questions' }));
 };
 /** Get a question
  * @param {obj}
@@ -26,9 +28,15 @@ const allquestion = (req, res) => {
 const aQuestion = (req, res) => {
   getOne(req.params.id).then((question) => {
     res.send({
-      results: question,
+      results: {
+        status: 'success',
+        message: 'question was succcessfully fetched',
+        data: question,
+      },
     });
-  }).catch(() => res.status(400).send({ error: 'No question with that id exist' }));
+  }).catch(() => {
+    res.status(400).send({ error: 'No question with that id exist' })
+  });
 };
 /** post question
  * @param {obj}
@@ -36,9 +44,13 @@ const aQuestion = (req, res) => {
  * @public
 */
 const newQuestion = (req, res) => {
-  postQuestion(req.body.question).then((question) => {
+  postQuestion(req.body.question, req.userId).then((result) => { 
     res.send({
-      results: question,
+      results: {
+        status: 'success',
+        message: 'question was posted succcessfully',
+        data: result,
+      },
     });
   }).catch(() => res.status(404).send({ error: '"question" cannot be found' }));
 };
@@ -48,9 +60,11 @@ const newQuestion = (req, res) => {
  * @public
 */
 const newAnswer = (req, res) => {
-  postAnswer(req.params.id, req.body.answer).then((answer) => {
+  postAnswer(req.params.id, req.body.answer).then((result) => {
     res.send({
-      results: answer,
+      status: 'success',
+      message: 'answer was posted succcessfully',
+      data: result,
     });
   }).catch(() => res.status(404).send({ error: '"answer" cannot be found' }));
 };
@@ -61,7 +75,7 @@ const newAnswer = (req, res) => {
 */
 const questionDelete = (req, res) => {
   deleteQuestion(req.params.id).then(() => {
-    res.status(200).send('question was DELETED');
+    res.status(200).send('question was DELETED successfully');
   }).catch(error => res.status(400).send({ error }));
 };
 /** Favourite Anwer
@@ -72,7 +86,8 @@ const questionDelete = (req, res) => {
 const markDownAnswer = (req, res) => {
   favAnswer(req.params.answerId).then(() => {
     res.status(200).send({
-      results: 'success',
+      status: 'success',
+      message: 'answer was accepted',
     });
   }).catch(() => res.status(404).send({ error: '"answer" cannot be found' }));
 };

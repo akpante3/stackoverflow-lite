@@ -1,3 +1,4 @@
+import validator from 'email-validator';
 import {
   createUser,
   allUsers,
@@ -5,25 +6,51 @@ import {
 } from './../controller/users';
 
 const newUsers = (req, res) => {
+  if (!validator.validate(req.body.email)) {
+    return res.status(400).send('please input a valid email');
+  }
   createUser(req.body.email, req.body.password)
     .then((user) => {
       res.send({
-        results: user,
+        status: 'success',
+        message: 'user was created succcessfully',
+        data: user,
       });
-    }).catch(() => res.status(400).send({ error: 'input a email and password' }));
+    }).catch(() => {
+      res.status(400).send({    
+        auth: false,
+        token: null,
+        message: 'input valid email and password',
+      });
+    });
 };
 
 const getAllUsers = (req, res) => {
   allUsers().then((questions) => {
     res.send({
-      results: questions,
+      status: 'success',
+      message: 'users were fetched succcessfully',
+      data: questions,
     });
   }).catch(() => res.status(400).send({ error: 'An Error Occured' }));
 };
+
 const logInUser = (req, res) => {
+  if (!validator.validate(req.body.email)) {
+    return res.status(400).send('please input a valid email');
+  }
   login(req.body.email, req.body.password).then((token) => {
-    res.status(200).send({ auth: true, token });
-  }).catch(() => res.status(401).send({ auth: false, token: null }));
+    res.status(200).send({
+      auth: true,
+      token,
+      status: 'success',
+      message: 'login was succcessfully',
+    });
+  }).catch(() => res.status(400).send({
+    auth: false,
+    token: null,
+    message: 'invalid user',
+  }));
 };
 
 export {

@@ -15,10 +15,11 @@ const getAll = () => {
  * @public
 */
 const getOne = (id) => {
-  const questionId = parseFloat(id);
-  return db.task(t => t.batch([
-    t.one('SELECT id, question FROM questions WHERE id =$1', questionId),
-    t.any('SELECT answer_id,answer FROM answers WHERE answers.question_id =$1', questionId),
+  const questionId = parseInt(id, 10);
+  return db.task(data => data.batch([
+    data.one('SELECT id, question FROM questions WHERE id =$1', questionId),
+    data.any(`SELECT answer_id,answer FROM answers
+     WHERE answers.question_id =$1 `, questionId),
   ])).spread((question, answers) => {
     question.answers = answers;
     return question;
@@ -32,9 +33,10 @@ const getOne = (id) => {
  * @return {obj}
  * @public
 */
-const postQuestion = (question) => {
+const postQuestion = (question, userId) => {
   if (!question) return Promise.reject(new Error('post a question'));
-  return db.one('INSERT INTO questions (question) VALUES($1) RETURNING id', question)
+  return db.one(`INSERT INTO questions (question, user_id)
+   VALUES($1, $2) RETURNING id `, [question, userId])
     .then((data) => {
       return Promise.resolve(data);
     });
@@ -45,14 +47,13 @@ const postQuestion = (question) => {
  * @public
 */
 const postAnswer = (questionId, answer) => {
-  const id = parseFloat(questionId);
+  const id = parseInt(questionId, 10);
   const newAnswer = answer;
-  console.log(id);
-  return db.one('INSERT INTO answers (question_id,answer,is_favourite) VALUES($1,$2,$3) RETURNING answer_id', [id, newAnswer, false])
+  return db.one(`INSERT INTO answers (question_id,answer,is_favourite)
+   VALUES($1,$2,$3) RETURNING answer_id `, [id, newAnswer, false])
     .then((data) => {
-      console.log(data);
       return Promise.resolve(data);
-    }).catch((e) => { console.log(e); });
+    });
 };
 /**  DELETE question
  * @param {string}
@@ -61,8 +62,7 @@ const postAnswer = (questionId, answer) => {
 */
 const deleteQuestion = (id) => {
   if (!id) return Promise.reject(new Error('question is not Found'));
-  const questionId = parseFloat(id);
-  console.log(questionId);
+  const questionId = parseInt(id, 10);
   return db.result('DELETE FROM questions where id = $1', questionId)
     .then((data) => {
       return Promise.resolve(data);
@@ -74,11 +74,12 @@ const deleteQuestion = (id) => {
  * @public
 */
 const favAnswer = (answerId) => {
-  const id = parseFloat(answerId);
-  return db.one('UPDATE answers SET is_favourite = true WHERE answer_id = $1', id)
+  const id = parseInt(answerId, 10);
+  return db.one(`UPDATE answers SET is_favourite = true
+   WHERE answer_id = $1`, id)
     .then(() => {
       return Promise.resolve(true);
-    }).catch((e) => { console.log(e); });
+    });
 };
 
 export {
@@ -89,3 +90,4 @@ export {
   deleteQuestion,
   favAnswer,
 };
+
