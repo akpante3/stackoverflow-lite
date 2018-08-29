@@ -13,10 +13,8 @@
         "linebreak-style": 0,
         "global-require": 0,
         "eslint linebreak-style": [0, "error", "windows"],
-        "no-console": "off",
-        "no-undef": "off",
-        "no-param-reassign":"off",
-        "arrow-body-style":"off"
+        "max-len":[2,80,4],
+        "no-undef": "off"
       }
 
 }

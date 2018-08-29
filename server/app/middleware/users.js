@@ -17,7 +17,7 @@ const newUsers = (req, res) => {
         data: user,
       });
     }).catch(() => {
-      res.status(400).send({    
+      res.status(400).send({
         auth: false,
         token: null,
         message: 'input valid email and password',

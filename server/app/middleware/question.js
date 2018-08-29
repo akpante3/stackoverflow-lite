@@ -44,7 +44,7 @@ const aQuestion = (req, res) => {
  * @public
 */
 const newQuestion = (req, res) => {
-  postQuestion(req.body.question, req.userId).then((result) => { 
+  postQuestion(req.body.question, req.userId).then((result) => {
     res.send({
       results: {
         status: 'success',
