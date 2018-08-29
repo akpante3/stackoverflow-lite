@@ -12,7 +12,8 @@ const config = require('./.././../config.js');
 const createUser = (email, password) => {
   if (!email || !password) return Promise.reject(new Error('post a question'));
   const hashedPassword = bcrypt.hashSync(password, 8);
-  return db.one('INSERT INTO users (email, password) VALUES($1,$2) RETURNING id', [email, hashedPassword])
+  return db.one(`INSERT INTO users (email, password) 
+  VALUES($1,$2) RETURNING id `, [email, hashedPassword])
     .then((data) => {
       const token = jwt.sign({ id: data.id }, config.secret, {
         expiresIn: 86400,

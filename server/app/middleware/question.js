@@ -14,9 +14,11 @@ import {
 const allquestion = (req, res) => {
   getAll().then((questions) => {
     res.send({
-      results: questions,
+      status: 'success',
+      message: 'question was succcessfully fetched',
+      data: questions,
     });
-  }).catch(() => res.status(400).send({ error: 'An Error Occured' }));
+  }).catch(() => res.status(400).send({ error: 'could not find Questions' }));
 };
 /** Get a question
  * @param {obj}
@@ -28,11 +30,13 @@ const aQuestion = (req, res) => {
     res.send({
       results: {
         status: 'success',
-        message: 'question succcessfully fetched',
+        message: 'question was succcessfully fetched',
         data: question,
       },
     });
-  }).catch(() => res.status(400).send({ error: 'No question with that id exist' }));
+  }).catch(() => {
+    res.status(400).send({ error: 'No question with that id exist' })
+  });
 };
 /** post question
  * @param {obj}
@@ -40,7 +44,7 @@ const aQuestion = (req, res) => {
  * @public
 */
 const newQuestion = (req, res) => {
-  postQuestion(req.body.question).then((result) => { 
+  postQuestion(req.body.question, req.userId).then((result) => { 
     res.send({
       results: {
         status: 'success',
@@ -71,7 +75,7 @@ const newAnswer = (req, res) => {
 */
 const questionDelete = (req, res) => {
   deleteQuestion(req.params.id).then(() => {
-    res.status(200).send('question was DELETED');
+    res.status(200).send('question was DELETED successfully');
   }).catch(error => res.status(400).send({ error }));
 };
 /** Favourite Anwer
@@ -82,7 +86,8 @@ const questionDelete = (req, res) => {
 const markDownAnswer = (req, res) => {
   favAnswer(req.params.answerId).then(() => {
     res.status(200).send({
-      results: 'answer was accepted',
+      status: 'success',
+      message: 'answer was accepted',
     });
   }).catch(() => res.status(404).send({ error: '"answer" cannot be found' }));
 };

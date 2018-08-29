@@ -1,4 +1,5 @@
 import express from 'express';
+import authenticate from '../middleware/auth';
 
 import {
   newQuestion,
@@ -13,7 +14,7 @@ const questionRoutes = express.Router();
 
 questionRoutes.get('/questions', allquestion);
 questionRoutes.get('/questions/:id', aQuestion);
-questionRoutes.post('/questions', newQuestion);
+questionRoutes.post('/questions', authenticate, newQuestion);
 questionRoutes.post('/questions/:id/answers', newAnswer);
 questionRoutes.delete('/questions/:id', questionDelete);
 questionRoutes.put('/questions/:questionId/answers/:answerId', markDownAnswer);

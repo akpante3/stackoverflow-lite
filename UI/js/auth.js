@@ -33,7 +33,7 @@ $(document).ready(() => {
 
         }).then(res => {
             res.json().then(data => {
-                const token = data.results.token;
+                const token = data.token;
                 setAccessToken(token);
             });
             
@@ -55,7 +55,7 @@ $(document).ready(() => {
 
         }).then(res => {
             res.json().then(data => {
-                const token = data.results.token;
+                const token = data.token;
                 setAccessToken(token)
             });
         });

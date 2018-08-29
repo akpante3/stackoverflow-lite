@@ -4,14 +4,12 @@ import {
   allUsers,
   login,
 } from './../controller/users';
+import { error } from 'util';
 
-const validate = (email, res) => {
-  if (!validator.validate(email)) {
-    return res.send('please input a valid email');
-  }
-};
 const newUsers = (req, res) => {
-  validate(req.body.email, res);
+  if (!validator.validate(req.body.email)) {
+    return res.status(400).send('please input a valid email');
+  }
   createUser(req.body.email, req.body.password)
     .then((user) => {
       res.send({
@@ -19,7 +17,13 @@ const newUsers = (req, res) => {
         message: 'user was created succcessfully',
         data: user,
       });
-    }).catch(() => res.status(400).send({ error: 'input a email and password' }));
+    }).catch(() => {
+      res.status(400).send({    
+        auth: false,
+        token: null,
+        message: 'input valid email and password',
+      });
+    });
 };
 
 const getAllUsers = (req, res) => {
@@ -33,10 +37,21 @@ const getAllUsers = (req, res) => {
 };
 
 const logInUser = (req, res) => {
-  validate(req.body.email, res);
+  if (!validator.validate(req.body.email)) {
+    return res.status(400).send('please input a valid email');
+  }
   login(req.body.email, req.body.password).then((token) => {
-    res.status(200).send({ auth: true, token });
-  }).catch(() => res.status(400).send({ auth: false, token: null }));
+    res.status(200).send({
+      auth: true,
+      token,
+      status: 'success',
+      message: 'login was succcessfully',
+    });
+  }).catch(() => res.status(400).send({
+    auth: false,
+    token: null,
+    message: 'invalid user',
+  }));
 };
 
 export {
