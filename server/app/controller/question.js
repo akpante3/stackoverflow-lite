@@ -34,8 +34,9 @@ const getOne = (id) => {
 */
 const postQuestion = (question) => {
   if (!question) return Promise.reject(new Error('post a question'));
-  return db.one('INSERT INTO questions (question) VALUES($1) RETURNING id', question)
+  return db.one('INSERT INTO questions (question, user_id) VALUES($1, $2) RETURNING id', [question, 13])
     .then((data) => {
+      console.log(data);
       return Promise.resolve(data);
     });
 };

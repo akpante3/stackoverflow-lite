@@ -100,13 +100,16 @@ describe('/questions/:id', () => {
 
 describe('/auth/signup', () => {
   it('should sign up a new user when all conditions are meet', (done) => {
+    const email = 'example@example.com';
+    const password = '123mnb!';
     request(app)
       .post('/auth/signup')
+      .send(email, password)
       .set('Accept', 'application/json')
       .end((err) => {
         if (err) return done(err);
-        expect((req) => {
-          expect(req.body.id).toBeTruthy();
+        expect((res) => {
+          expect(res.body.id).toBeTruthy();
         });
         return done();
       });

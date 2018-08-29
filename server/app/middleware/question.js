@@ -26,7 +26,11 @@ const allquestion = (req, res) => {
 const aQuestion = (req, res) => {
   getOne(req.params.id).then((question) => {
     res.send({
-      results: question,
+      results: {
+        status: 'success',
+        message: 'question succcessfully fetched',
+        data: question,
+      },
     });
   }).catch(() => res.status(400).send({ error: 'No question with that id exist' }));
 };
@@ -36,9 +40,13 @@ const aQuestion = (req, res) => {
  * @public
 */
 const newQuestion = (req, res) => {
-  postQuestion(req.body.question).then((question) => {
+  postQuestion(req.body.question).then((result) => { 
     res.send({
-      results: question,
+      results: {
+        status: 'success',
+        message: 'question was posted succcessfully',
+        data: result,
+      },
     });
   }).catch(() => res.status(404).send({ error: '"question" cannot be found' }));
 };
@@ -48,9 +56,11 @@ const newQuestion = (req, res) => {
  * @public
 */
 const newAnswer = (req, res) => {
-  postAnswer(req.params.id, req.body.answer).then((answer) => {
+  postAnswer(req.params.id, req.body.answer).then((result) => {
     res.send({
-      results: answer,
+      status: 'success',
+      message: 'answer was posted succcessfully',
+      data: result,
     });
   }).catch(() => res.status(404).send({ error: '"answer" cannot be found' }));
 };
@@ -72,7 +82,7 @@ const questionDelete = (req, res) => {
 const markDownAnswer = (req, res) => {
   favAnswer(req.params.answerId).then(() => {
     res.status(200).send({
-      results: 'success',
+      results: 'answer was accepted',
     });
   }).catch(() => res.status(404).send({ error: '"answer" cannot be found' }));
 };
