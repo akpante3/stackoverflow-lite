@@ -4,7 +4,7 @@ import db from '../db/dbconnect';
  * @public
 */
 const getAll = () => {
-  return db.any('select * from questions')
+  return db.any('select questions.id, question, name from questions left join users on questions.user_id = users.id')
     .then((data) => {
       return Promise.resolve(data);
     });

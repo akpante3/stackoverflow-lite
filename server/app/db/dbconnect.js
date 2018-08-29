@@ -1,6 +1,7 @@
 import promise from 'bluebird';
-
-import pgp from 'pg-promise';
+import path from 'path';
+import pgp, { QueryFile } from 'pg-promise';
+import '../../config/config';
 
 const options = {
   promiseLib: promise,
@@ -8,7 +9,14 @@ const options = {
 
 const pg = pgp(options);
 
-const connectionString = 'postgres://postgres:123456@localhost:5432/questiondb';
+const connectionString = process.env.DATABASE_URL;
 const db = pg(connectionString);
+const scriptPath = path.join(__dirname, 'schema.sql');
+
+const file = new QueryFile(scriptPath);
+
+db.none(file)
+  .then(e => console.log('successfully created dabatase'))
+  .catch(z => console.log(z));
 
 export default db;

@@ -1,0 +1,6 @@
+{
+    "development" : {
+        "DATABASE_URL" : "postgres://postgres:123456@localhost:5432/questiondb",
+        "JWT_SECRET" : "niusjatehniklasntm489we5iu09"
+    } 
+}

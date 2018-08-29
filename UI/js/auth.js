@@ -17,6 +17,7 @@ $(document).ready(() => {
         const email = $('input.email').val();
         const password = $('input.password').val();
         const repeatPassword = $('input.repeat-password').val();
+        const username = $('input.username').val();
         if(password != repeatPassword)
         {
             $('form.sign-container').append(`<p>password must be the same</p>`)
@@ -25,7 +26,7 @@ $(document).ready(() => {
 
         fetch('http://localhost:8000/v1/auth/signup', {
             method : 'post',
-            body : JSON.stringify({email, password}),
+            body : JSON.stringify({email, password, username}),
             headers : {
                 'Accept' : 'application/json',
                 'Content-Type':'application/json'
@@ -35,6 +36,7 @@ $(document).ready(() => {
             res.json().then(data => {
                 const token = data.token;
                 setAccessToken(token);
+                location.href =  './../UI/index.html';
             });
             
         });
@@ -57,6 +59,7 @@ $(document).ready(() => {
             res.json().then(data => {
                 const token = data.token;
                 setAccessToken(token)
+                location.href =  './../UI/index.html';                
             });
         });
 

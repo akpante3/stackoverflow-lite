@@ -9,17 +9,19 @@ const config = require('./.././../config.js');
  * @return {string}
  * @public
 */
-const createUser = (email, password) => {
-  if (!email || !password) return Promise.reject(new Error('post a question'));
+const createUser = (email, password, userName) => {
+  if (!email || !password) {
+    return Promise.reject(new Error('post a question'));
+  }
   const hashedPassword = bcrypt.hashSync(password, 8);
-  return db.one(`INSERT INTO users (email, password) 
-  VALUES($1,$2) RETURNING id `, [email, hashedPassword])
+  return db.one(`INSERT INTO users (email, password, name) 
+  VALUES($1,$2,$3) RETURNING id `, [email, hashedPassword, userName])
     .then((data) => {
-      const token = jwt.sign({ id: data.id }, config.secret, {
+      const token = jwt.sign({ id: data.id, name: userName }, process.env.JWT_SECRET, {
         expiresIn: 86400,
       });
-      return Promise.resolve({ token });
-    });
+      return Promise.resolve(token);
+    }).catch(e => console.log(e));
 };
 /**  Get all Users
  * @return {obj}
@@ -40,7 +42,7 @@ const login = (email, password) => {
   return db.one('SELECT * FROM users WHERE email =$1', email)
     .then((data) => {
       const passwordIsValid = bcrypt.compareSync(password, data.password);
-      const token = jwt.sign({ id: data.id }, config.secret, {
+      const token = jwt.sign({ id: data.id }, process.env.JWT_SECRET, {
         expiresIn: 86400,
       });
       if (!passwordIsValid) {

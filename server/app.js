@@ -3,6 +3,7 @@ import bodyParser from 'body-parser';
 import userRoutes from './app/routes/users';
 import questionRoutes from './app/routes/question';
 import cors from 'cors';
+import './config/config';
 
 
 const app = express();
@@ -12,7 +13,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use('/v1', questionRoutes);
 app.use('/v1', userRoutes);
-
 app.listen(port, () => {
   console.log(`running on ${port}`);
 });

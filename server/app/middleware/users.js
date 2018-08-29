@@ -9,12 +9,12 @@ const newUsers = (req, res) => {
   if (!validator.validate(req.body.email)) {
     return res.status(400).send('please input a valid email');
   }
-  createUser(req.body.email, req.body.password)
-    .then((user) => {
+  createUser(req.body.email, req.body.password, req.body.username)
+    .then((token) => {
       res.send({
         status: 'success',
         message: 'user was created succcessfully',
-        data: user,
+        token,
       });
     }).catch(() => {
       res.status(400).send({    
