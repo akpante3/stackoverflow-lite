@@ -15,7 +15,7 @@ const getAll = () => {
  * @public
 */
 const getOne = (id) => {
-  const questionId = parseFloat(id);
+  const questionId = parseInt(id, 10);
   return db.task(data => data.batch([
     data.one('SELECT id, question FROM questions WHERE id =$1', questionId),
     data.any(`SELECT answer_id,answer FROM answers
@@ -47,7 +47,7 @@ const postQuestion = (question, userId) => {
  * @public
 */
 const postAnswer = (questionId, answer) => {
-  const id = parseFloat(questionId);
+  const id = parseInt(questionId, 10);
   const newAnswer = answer;
   return db.one(`INSERT INTO answers (question_id,answer,is_favourite)
    VALUES($1,$2,$3) RETURNING answer_id `, [id, newAnswer, false])

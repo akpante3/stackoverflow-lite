@@ -4,7 +4,6 @@ import {
   allUsers,
   login,
 } from './../controller/users';
-import { error } from 'util';
 
 const newUsers = (req, res) => {
   if (!validator.validate(req.body.email)) {
