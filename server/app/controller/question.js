@@ -4,7 +4,8 @@ import db from '../db/dbconnect';
  * @public
 */
 const getAll = () => {
-  return db.any('select questions.id, question, name from questions left join users on questions.user_id = users.id')
+  return db.any(`select questions.id, question, name from questions 
+  left join users on questions.user_id = users.id `)
     .then((data) => {
       return Promise.resolve(data);
     });
@@ -47,6 +48,7 @@ const postQuestion = (question, userId) => {
  * @public
 */
 const postAnswer = (questionId, answer, userId) => {
+  if (!answer) return Promise.reject(new Error('please post an answer'));
   const id = parseInt(questionId, 10);
   const newAnswer = answer;
   console.log(userId, newAnswer, questionId);

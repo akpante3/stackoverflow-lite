@@ -9,7 +9,7 @@ name text not null
 
 CREATE TABLE IF NOT EXISTS public.questions
 (
-  question character(2000),
+  question character(225),
   id serial NOT NULL primary key,
   user_Id integer not null REFERENCES public.users(id)
 );

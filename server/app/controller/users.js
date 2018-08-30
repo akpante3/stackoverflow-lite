@@ -12,15 +12,17 @@ const bcrypt = require('bcryptjs');
 */
 const createUser = (email, password, userName) => {
   if (!email || !password || !userName) {
-    return Promise.reject(new Error('please include username, password an6d valid email'));
+    return Promise.reject(new Error(`please include username,
+   password and valid email`));
   }
   const hashedPassword = bcrypt.hashSync(password, 8);
   return db.one(`INSERT INTO users (email, password, name) 
   VALUES($1,$2,$3) RETURNING id `, [email, hashedPassword, userName])
     .then((data) => {
-      const token = jwt.sign({ id: data.id, name: userName }, process.env.JWT_SECRET, {
-        expiresIn: 86400,
-      });
+      const token = jwt.sign(
+        { id: data.id, name: userName }, process.env.JWT_SECRET, {
+          expiresIn: 86400,
+        });
       console.log(token);
       return Promise.resolve(token);
     }).catch(e => console.log(e));
