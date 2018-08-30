@@ -46,13 +46,16 @@ const postQuestion = (question, userId) => {
  * @return {obj}
  * @public
 */
-const postAnswer = (questionId, answer) => {
+const postAnswer = (questionId, answer, userId) => {
   const id = parseInt(questionId, 10);
   const newAnswer = answer;
-  return db.one(`INSERT INTO answers (question_id,answer,is_favourite)
-   VALUES($1,$2,$3) RETURNING answer_id `, [id, newAnswer, false])
+  console.log(userId, newAnswer, questionId);
+  return db.one(`INSERT INTO answers (question_id,answer,is_favourite,user_id)
+   VALUES($1,$2,$3,$4) RETURNING answer_id `, [id, newAnswer, false, userId])
     .then((data) => {
       return Promise.resolve(data);
+    }).catch((error)=>{
+    console.log(error)
     });
 };
 /**  DELETE question
@@ -79,6 +82,8 @@ const favAnswer = (answerId) => {
    WHERE answer_id = $1`, id)
     .then(() => {
       return Promise.resolve(true);
+    }).catch((error) => {
+      console.log(error)
     });
 };
 

@@ -15,7 +15,7 @@ const questionRoutes = express.Router();
 questionRoutes.get('/questions', allquestion);
 questionRoutes.get('/questions/:id', aQuestion);
 questionRoutes.post('/questions', authenticate, newQuestion);
-questionRoutes.post('/questions/:id/answers', newAnswer);
+questionRoutes.post('/questions/:id/answers', authenticate, newAnswer);
 questionRoutes.delete('/questions/:id', questionDelete);
 questionRoutes.put('/questions/:questionId/answers/:answerId', markDownAnswer);
 /** questions routes

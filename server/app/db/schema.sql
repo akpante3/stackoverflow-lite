@@ -19,10 +19,11 @@ CREATE TABLE IF NOT EXISTS public.answers
   answer character(225),
   question_id integer,
   answer_id serial NOT NULL,
+  is_favourite boolean Default false,
   user_Id integer not null REFERENCES public.users(id),
   CONSTRAINT answers_pkey PRIMARY KEY (answer_id),
   CONSTRAINT id FOREIGN KEY (question_id)
       REFERENCES public.questions (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION
+      ON UPDATE NO ACTION ON DELETE cascade
 );
 

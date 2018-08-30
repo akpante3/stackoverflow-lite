@@ -3,7 +3,6 @@ import jwt from 'jsonwebtoken';
 
 const authenticate = (req, res, next) => {
   const token = req.header('accessToken');
-  
   if (token) {
     let decoded;
     try {

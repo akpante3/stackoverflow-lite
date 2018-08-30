@@ -20,7 +20,7 @@ const newUsers = (req, res) => {
       res.status(400).send({    
         auth: false,
         token: null,
-        message: 'input valid email and password',
+        message: 'input valid email and password and username',
       });
     });
 };

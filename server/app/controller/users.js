@@ -1,4 +1,5 @@
 import db from '../db/dbconnect';
+import { error } from 'util';
 
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
@@ -10,8 +11,8 @@ const bcrypt = require('bcryptjs');
  * @public
 */
 const createUser = (email, password, userName) => {
-  if (!email || !password) {
-    return Promise.reject(new Error('post a question'));
+  if (!email || !password || !userName) {
+    return Promise.reject(new Error('please include username, password an6d valid email'));
   }
   const hashedPassword = bcrypt.hashSync(password, 8);
   return db.one(`INSERT INTO users (email, password, name) 
@@ -20,6 +21,7 @@ const createUser = (email, password, userName) => {
       const token = jwt.sign({ id: data.id, name: userName }, process.env.JWT_SECRET, {
         expiresIn: 86400,
       });
+      console.log(token);
       return Promise.resolve(token);
     }).catch(e => console.log(e));
 };

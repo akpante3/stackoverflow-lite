@@ -60,7 +60,7 @@ const newQuestion = (req, res) => {
  * @public
 */
 const newAnswer = (req, res) => {
-  postAnswer(req.params.id, req.body.answer).then((result) => {
+  postAnswer(req.params.id, req.body.answer, req.userId).then((result) => {
     res.send({
       status: 'success',
       message: 'answer was posted succcessfully',
