@@ -11,8 +11,8 @@ const port = process.env.PORT || 8000;
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use('/v1', questionRoutes);
-app.use('/v1', userRoutes);
+app.use('/api/v1', questionRoutes);
+app.use('/api/v1', userRoutes);
 app.listen(port, () => {
   console.log(`running on ${port}`);
 });

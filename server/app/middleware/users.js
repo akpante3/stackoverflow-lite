@@ -14,13 +14,12 @@ const newUsers = (req, res) => {
       res.send({
         status: 'success',
         message: 'user was created succcessfully',
-        token,
+        data: token,
       });
-    }).catch(() => {
-      res.status(400).send({    
-        auth: false,
-        token: null,
-        message: 'input valid email and password and username',
+    }).catch((error) => {
+      res.status(400).send({
+        status: 'failure',
+        message: error.message,
       });
     });
 };
@@ -32,7 +31,10 @@ const getAllUsers = (req, res) => {
       message: 'users were fetched succcessfully',
       data: questions,
     });
-  }).catch(() => res.status(400).send({ error: 'An Error Occured' }));
+  }).catch(() => res.status(400).send({
+    status: 'failure',
+    message: 'users were not found',
+  }));
 };
 
 const logInUser = (req, res) => {
@@ -47,9 +49,8 @@ const logInUser = (req, res) => {
       message: 'login was succcessfully',
     });
   }).catch(() => res.status(400).send({
-    auth: false,
-    token: null,
-    message: 'invalid user',
+    status: 'failure',
+    message: 'users were not found',
   }));
 };
 

@@ -37,7 +37,7 @@ const getOne = (id) => {
 const postQuestion = (question, userId) => {
   if (!question) return Promise.reject(new Error('post a question'));
   return db.one(`INSERT INTO questions (question, user_id)
-   VALUES($1, $2) RETURNING id `, [question, userId])
+   VALUES($1, $2) RETURNING id, question`, [question, userId])
     .then((data) => {
       return Promise.resolve(data);
     });
@@ -53,11 +53,9 @@ const postAnswer = (questionId, answer, userId) => {
   const newAnswer = answer;
   console.log(userId, newAnswer, questionId);
   return db.one(`INSERT INTO answers (question_id,answer,is_favourite,user_id)
-   VALUES($1,$2,$3,$4) RETURNING answer_id `, [id, newAnswer, false, userId])
+   VALUES($1,$2,$3,$4) RETURNING answer_id, answer`, [id, newAnswer, false, userId])
     .then((data) => {
       return Promise.resolve(data);
-    }).catch((error)=>{
-    console.log(error)
     });
 };
 /**  DELETE question
@@ -69,8 +67,8 @@ const deleteQuestion = (id) => {
   if (!id) return Promise.reject(new Error('question is not Found'));
   const questionId = parseInt(id, 10);
   return db.result('DELETE FROM questions where id = $1', questionId)
-    .then((data) => {
-      return Promise.resolve(data);
+    .then(() => {
+      return Promise.resolve('success');
     });
 };
 /**  Get answer
@@ -85,7 +83,7 @@ const favAnswer = (answerId) => {
     .then(() => {
       return Promise.resolve(true);
     }).catch((error) => {
-      console.log(error)
+      return Promise.reject(error);
     });
 };
 
