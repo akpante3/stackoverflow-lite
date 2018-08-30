@@ -1,15 +1,13 @@
 
 import jwt from 'jsonwebtoken';
-import config from '../../config';
 
 const authenticate = (req, res, next) => {
-  debugger;
   const token = req.header('accessToken');
   
   if (token) {
     let decoded;
     try {
-      decoded = jwt.verify(token, config.secret);
+      decoded = jwt.verify(token, process.env.JWT_SECRET);
       req.userId = decoded.id;
       req.username = decoded.name;
       next();

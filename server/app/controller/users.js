@@ -2,7 +2,7 @@ import db from '../db/dbconnect';
 
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-const config = require('./.././../config.js');
+
 
 /**  create a User
  * @param {string}
@@ -55,7 +55,6 @@ const login = (email, password) => {
 export {
   createUser,
   allUsers,
-  config,
   bcrypt,
   jwt,
   login,
