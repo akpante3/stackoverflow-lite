@@ -1,6 +1,4 @@
 import db from '../db/dbconnect';
-
-
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
