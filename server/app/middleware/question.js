@@ -83,14 +83,15 @@ const newAnswer = (req, res) => {
  * @public
 */
 const questionDelete = (req, res) => {
-  deleteQuestion(req.params.id).then(() => {
+
+  deleteQuestion(req.params.id, req.userId).then(() => {  
     res.status(200).send({
       status: 'success',
-      message: 'answer was posted succcessfully',
+      message: 'question was deleted succcessfully',
     });
-  }).catch(() => res.status(404).send({
-    status: 'NOT FOUND',
-    message: 'Question was not found',
+  }).catch(value => res.status(404).send({
+    status: 'failure',
+    message: value,
   }));
 };
 /** Favourite Anwer
@@ -102,10 +103,10 @@ const markDownAnswer = (req, res) => {
   favAnswer(req.params.answerId).then(() => {
     res.status(200).send({
       status: 'success',
-      message: 'Answer was accepted by user',
+      message: 'answer was successfully accepted',
     });
   }).catch(() => res.status(404).send({
-    status: 'NOT FOUND',
+    status: 'failure',
     message: 'answer was not found',
   }));
 };

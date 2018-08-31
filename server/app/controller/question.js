@@ -52,8 +52,8 @@ const postAnswer = (questionId, answer, userId) => {
   const id = parseInt(questionId, 10);
   const newAnswer = answer;
   console.log(userId, newAnswer, questionId);
-  return db.one(`INSERT INTO answers (question_id,answer,is_favourite,user_id)
-   VALUES($1,$2,$3,$4) RETURNING answer_id, answer`, [id, newAnswer, false, userId])
+  return db.one(`INSERT INTO answers (question_id,answer,is_favourite,user_id) VALUES($1,$2,$3,$4)
+   RETURNING answer_id, answer`, [id, newAnswer, false, userId])
     .then((data) => {
       return Promise.resolve(data);
     });
@@ -63,12 +63,16 @@ const postAnswer = (questionId, answer, userId) => {
  * @return {string}
  * @public
 */
-const deleteQuestion = (id) => {
+const deleteQuestion = (id, userId) => {
   if (!id) return Promise.reject(new Error('question is not Found'));
   const questionId = parseInt(id, 10);
-  return db.result('DELETE FROM questions where id = $1', questionId)
-    .then(() => {
-      return Promise.resolve('success');
+  return db.one('select user_id FROM questions where id = $1', questionId)
+    .then((value) => {
+      if (value.user_id === userId) {
+        db.none('DELETE FROM questions WHERE id=$1', questionId);
+        return Promise.resolve('success');
+      }
+      return Promise.reject('user is not authorized');
     });
 };
 /**  Get answer
@@ -79,11 +83,11 @@ const deleteQuestion = (id) => {
 const favAnswer = (answerId) => {
   const id = parseInt(answerId, 10);
   return db.one(`UPDATE answers SET is_favourite = true
-   WHERE answer_id = $1`, id)
+   WHERE answer_id =$1`, id)
     .then(() => {
-      return Promise.resolve(true);
-    }).catch((error) => {
-      return Promise.reject(error);
+      return Promise.resolve('Answer was accepted by user');
+    }).catch((e) => {
+      console.log(e);
     });
 };
 
