@@ -40,7 +40,10 @@ const getAllUsers = (req, res) => {
 
 const logInUser = (req, res) => {
   if (!validator.validate(req.body.email)) {
-    return res.status(400).send('please input a valid email');
+    return res.status(400).send({    
+      status: 'failure',
+      message: 'please put a registered or valid email',
+    });
   }
   login(req.body.email, req.body.password).then((token) => {
     res.status(200).send({
@@ -51,7 +54,7 @@ const logInUser = (req, res) => {
     });
   }).catch(() => res.status(400).send({
     status: 'failure',
-    message: 'users were not found',
+    message: 'users was not found',
   }));
 };
 

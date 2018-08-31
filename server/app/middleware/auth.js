@@ -16,7 +16,7 @@ const authenticate = (req, res, next) => {
         message: 'token is not valid, please insert a valid token',
       });
     }
-  } else {
+  } else if (!token) {
     res.status(401).send({
       status: 'failure',
       message: 'access-token was not found',
