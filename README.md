@@ -2,7 +2,7 @@
 
 [![Coverage Status](https://coveralls.io/repos/github/akpante3/stackoverflow-lite/badge.svg)](https://coveralls.io/github/akpante3/stackoverflow-lite)
 
-# Stackoverflow REST API
+# Stackoverflow-lite REST API
 its an API used for questions and answers
 You can try our API in [console](cd server n6pm start) (https://api-database-stackoverflow.herokuapp.com)
 
